@@ -1,0 +1,11 @@
+{% if transactions %}
+    {% for Transaction in transactions %}
+        <p>Transaction Hash: {{ Transaction.Hash }}</p>
+        <p>From: {{ Transaction.From }}</p>
+        <p>To: {{ Transaction.To }}</p>
+        <p>Value: {{ Transaction.Value }}</p>
+        <!-- Add any other details you want to display -->
+    {% endfor %}
+{% else %}
+    <p>No transactions found.</p>
+{% endif %}
