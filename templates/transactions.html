@@ -1,11 +1,21 @@
-{% if transactions %}
-    {% for Transaction in transactions %}
-        <p>Transaction Hash: {{ Transaction.Hash }}</p>
-        <p>From: {{ Transaction.From }}</p>
-        <p>To: {{ Transaction.To }}</p>
-        <p>Value: {{ Transaction.Value }}</p>
-        <!-- Add any other details you want to display -->
-    {% endfor %}
-{% else %}
-    <p>No transactions found.</p>
-{% endif %}
+<!DOCTYPE html>
+<table>
+    <thead>
+        <tr>
+            <th>Hash</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ range $.transactions }}
+        <tr>
+            <td>{{ .Hash }}</td>
+            <td>{{ .From }}</td>
+            <td>{{ .To }}</td>
+            <td>{{ .Value }}</td>
+        </tr>
+        {{ end }}
+    </tbody>
+</table>

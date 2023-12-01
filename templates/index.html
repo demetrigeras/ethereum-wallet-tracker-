@@ -1,4 +1,22 @@
-<form method="POST" action="/fetch_transactions">
-    <input type="text" name="walletAddress" placeholder="Enter Wallet Address">
-    <button type="submit">Fetch Transactions</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ethereum Wallet Tracker</title>
+</head>
+<body>
+    <h1>Ethereum Wallet Transactions</h1>
+
+    <form method="POST" action="/fetch_transactions">
+        <label for="walletAddress">Enter Wallet Address:</label>
+        <input type="text" id="walletAddress" name="walletAddress" placeholder="0x...">
+        <button type="submit">Fetch Transactions</button>
+    </form>
+
+    <ul>
+        {{range .transactions}}
+            <li><a href="/transaction/{{.Hash}}">{{.Hash}}</a></li>
+        {{end}}
+    </ul>
+</body>
+</html>
