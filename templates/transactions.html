@@ -1,21 +1,36 @@
 <!DOCTYPE html>
-<table>
-    <thead>
-        <tr>
-            <th>Hash</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Value</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{ range $.transactions }}
-        <tr>
-            <td>{{ .Hash }}</td>
-            <td>{{ .From }}</td>
-            <td>{{ .To }}</td>
-            <td>{{ .Value }}</td>
-        </tr>
-        {{ end }}
-    </tbody>
-</table>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ethereum Wallet Tracker</title>
+</head>
+<body>
+    <h1>Ethereum Wallet Transactions</h1>
+
+    <!-- Transactions Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Hash</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range $.transactions }}
+            <tr>
+                <td>{{ .Hash }}</td>
+                <td>{{ .From }}</td>
+                <td>{{ .To }}</td>
+                <td>{{ .Value }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+
+    <!-- Pagination Links -->
+    
+</body>
+</html>
+

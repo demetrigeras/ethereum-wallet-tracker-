@@ -1,0 +1,28 @@
+	currentPage, err := strconv.Atoi(c.Query("page"))
+	if err != nil {
+		currentPage = 1
+	}
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html", pongo2.Context{"message": err.Error()})
+		return
+	}
+	if len(transactions) == 0 {
+		c.HTML(http.StatusOK, "transactions.html", pongo2.Context{"message": "No transactions found"})
+		return
+	}
+
+	totalTransactions := len(transactions)
+	totalPages := 1
+	if totalTransactions > pageSize {
+		totalPages = totalTransactions / pageSize
+		if totalTransactions%pageSize > 0 {
+			totalPages++
+		}
+	}
+
+	c.Set("pageSize", pageSize)
+	c.Set("currentPage", currentPage)
+	c.Set("totalPages", totalPages)
+
+	var pageSize int = 25   // Number of transactions per page
+	var currentPage int = 1 // Current page number

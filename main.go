@@ -34,6 +34,7 @@ func main() {
 }
 
 func Startweb() {
+
 	r := gin.Default()
 
 	// Serve HTML templates
@@ -48,7 +49,8 @@ func Startweb() {
 	// Route for submitting a wallet address
 	r.POST("/fetch_transactions", func(c *gin.Context) {
 		walletAddress := c.PostForm("walletAddress")
-		transactions, err := FetchTransactions(walletAddress)
+
+		transactions, err := FetchTransactions(walletAddress, 1)
 		if err != nil {
 			c.HTML(http.StatusInternalServerError, "error.html", pongo2.Context{"message": err.Error()})
 			return
@@ -57,20 +59,18 @@ func Startweb() {
 			c.HTML(http.StatusOK, "transactions.html", pongo2.Context{"message": "No transactions found"})
 			return
 		}
-
-		c.Set("transactions", transactions) // Set the transactions data in the context
-		c.HTML(http.StatusOK, "transactions.html", nil)
+		c.HTML(http.StatusOK, "transactions.html", gin.H{
+			"transactions": transactions,
+		})
 	})
-
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
 
 // FetchTransactions is a placeholder for your actual transaction fetching function.
-func FetchTransactions(walletAddress string) ([]Transaction, error) {
+func FetchTransactions(walletAddress string, page int) ([]Transaction, error) {
 	etherscanAPIKey := "J48JTZN2IZVYUUA7DME5IVPBKMM4YAMF68"
 	infuraProjectID := "f1bfabaa66614342a34543701a76b373"
 
-	// Fetch transactions from Etherscan
 	etherscanURL := fmt.Sprintf("https://api.etherscan.io/api?module=account&action=txlist&address=%s&startblock=0&endblock=99999999&sort=asc&apikey=%s", walletAddress, etherscanAPIKey)
 	resp, err := http.Get(etherscanURL)
 	if err != nil {
@@ -114,15 +114,5 @@ func FetchTransactions(walletAddress string) ([]Transaction, error) {
 		}
 	}
 
-	// Debug statement
-	fmt.Printf("Fetched transactions: %+v\n", transactions)
-
-	if len(transactions) == 0 {
-		fmt.Println("No transactions fetched")
-	} else {
-		fmt.Printf("Rendering %d transactions\n", len(transactions))
-	}
-
-	// Return the transactions and any error
 	return transactions, nil
 }
