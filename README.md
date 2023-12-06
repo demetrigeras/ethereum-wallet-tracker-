@@ -1,6 +1,6 @@
 # ethereum-wallet-tracker-
 
-In the project I took a wallet from etherscan and then used the infura.io api to fetch the transactions From To and Value. Below is the github link to the project:
+In this project I took a wallet from etherscan and then used the infura.io api to fetch the transactions From To and Value. Below is the github link to the project:
 
 https://github.com/demetrigeras/ethereum-wallet-tracker- 
 
